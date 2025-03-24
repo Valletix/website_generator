@@ -1,6 +1,6 @@
 import unittest
 
-from htmlnode import HTMLNode, LeafNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -21,6 +21,7 @@ class TestHTMLNode(unittest.TestCase):
         # or ensure your props_to_html handles props in a consistent order
         self.assertEqual(node.props_to_html(), ' href="https://example.com" target="_blank"')
 
+################################# LeafNode-Tests #############################################
 
     def test_leaf_to_html_p(self):
         node = LeafNode("p", "Hello, world!")
@@ -35,6 +36,30 @@ class TestHTMLNode(unittest.TestCase):
     def test_leaf_to_html_img(self):
         node = LeafNode("img", "SK Sturm", {"src": "Ordner/Unterordner/Meisterfeier.jpg", "alt": "Ein Bild der großartigen Meisterfeier"})
         self.assertEqual(node.to_html(), '<img src="Ordner/Unterordner/Meisterfeier.jpg" alt="Ein Bild der großartigen Meisterfeier" />')
+
+################################## ParentNode-Tests #############################################
+    
+
+
+    def test_to_html_with_children(self):
+        child_node = LeafNode("span", "child")
+        parent_node = ParentNode("div", [child_node])
+        self.assertEqual(parent_node.to_html(), "<div><span>child</span></div>")
+
+    def test_to_html_with_grandchildren(self):
+        grandchild_node = LeafNode("b", "grandchild")
+        child_node = ParentNode("span", [grandchild_node])
+        parent_node = ParentNode("div", [child_node])
+        self.assertEqual(
+            parent_node.to_html(),
+            "<div><span><b>grandchild</b></span></div>",
+        )
+    def test_to_html_with_mult_children(self):
+        child_node = LeafNode("span", "child")
+        child_node2 = LeafNode("b", "cake")
+        parent_node = ParentNode("div", [child_node, child_node2])
+        self.assertEqual(parent_node.to_html(), "<div><span>child</span><b>cake</b></div>")
+
 
 if __name__ == "__main__":
     unittest.main()

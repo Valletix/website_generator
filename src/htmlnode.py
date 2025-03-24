@@ -28,9 +28,32 @@ class LeafNode(HTMLNode):
     def to_html(self):
         if self.value == None:
             raise ValueError("No value given. The LeafNode must have a value")
+        
         self_enclosing_tags = ["area","base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"]
+        
         if self.tag == None:
             return f"{self.value}"
         if self.tag in self_enclosing_tags:
-            return f'<{self.tag}{self.props_to_html()} />'
+            return f"<{self.tag}{self.props_to_html()} />"
         return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
+    
+
+class ParentNode(HTMLNode):
+    def __init__(self, tag, children, props = None):
+        super().__init__(tag, None, children, props)
+
+    
+    def to_html(self):
+        if self.tag == None:
+            raise ValueError("No tag given. The ParentNode must have a tag.")
+        
+        if self.children == None:
+            raise ValueError("ParentNode is missing value for children")
+        
+        children = ""
+
+        for child in self.children:
+                children += (child.to_html())
+
+        return f'<{self.tag}{self.props_to_html()}>{children}</{self.tag}>'
+        
