@@ -1,6 +1,7 @@
 import unittest
 
 from htmlnode import HTMLNode, LeafNode, ParentNode
+from textnode import TextType, TextNode
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -59,6 +60,7 @@ class TestHTMLNode(unittest.TestCase):
         child_node2 = LeafNode("b", "cake")
         parent_node = ParentNode("div", [child_node, child_node2])
         self.assertEqual(parent_node.to_html(), "<div><span>child</span><b>cake</b></div>")
+
 
 
 if __name__ == "__main__":
