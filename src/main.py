@@ -8,11 +8,11 @@ def main():
         basepath = "/"
     else:
         basepath = sys.argv[1]
-    shutil.rmtree("public/", True)
-    print("Deleted the public directory")
-    os.mkdir("public")
-    print("created a new public directory")
-    del_and_copy_all("static/", basepath)
+    shutil.rmtree("docs/", True)
+    print("Deleted the docs directory")
+    os.mkdir("docs")
+    print("created a new docs directory")
+    del_and_copy_all("static/", "docs/")
     generate_pages_recursive("content/", "template.html", "docs/", basepath)
 
 
