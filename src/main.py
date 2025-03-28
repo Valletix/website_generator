@@ -1,10 +1,20 @@
-from textnode import *
-from htmlnode import *
+import os
+import shutil
 
 def main():
-    link_node = TextNode("This is some anchor text", TextType.BOLD, "https://www.boot.dev")
-    html_node= HTMLNode("a", "Nur der SK Sturm", props={"href": "http://www.sksturm.at","target": "_blank"})
-    print(link_node)
-    print(html_node)
+    pass
+
+
+def del_and_copy_all():
+    shutil.rmtree("public/", True)
+    print("Deleted all files from public-directory")
+    public_path = "public/"
+    static_path = "static/"
+    stc_files = os.listdir("static/")
+    print(stc_files)
+    path_list = []
+
+del_and_copy_all()
+
 
 main()
