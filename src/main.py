@@ -12,7 +12,7 @@ def main():
     print("Deleted the public directory")
     os.mkdir("public")
     print("created a new public directory")
-    del_and_copy_all("static/", "docs/")
+    del_and_copy_all("static/", basepath)
     generate_pages_recursive("content/", "template.html", "docs/", basepath)
 
 
